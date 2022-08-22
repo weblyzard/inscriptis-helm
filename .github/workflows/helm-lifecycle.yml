@@ -7,8 +7,6 @@ on:
     paths-ignore:
       - '**/README.md'
       - '**/index.yaml'
-  repository_dispatch:
-    types: tag-released
 
 jobs:
   release:
@@ -18,19 +16,9 @@ jobs:
 
     steps:
 
-    - name: prepare environment
-      run: |
-        echo "remote_ref=master" >> $env:GITHUB_ENV
-        if [[ "${{ github.event.name }}" == "tag-released" ]]; then
-          echo "remote_ref=${github.event.client_payload.ref}" >> $env:GITHUB_ENV
-          echo "using tag $env.remote_ref"
-        fi
-
     - name: checkout commit
       uses: actions/checkout@v3
       with:
-        repository: weblyzard/inscriptis
-        ref: ${{ env.remote_ref }}
         fetch-depth: 0
 
     - name: git configuration

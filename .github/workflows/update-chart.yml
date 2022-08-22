@@ -1,0 +1,45 @@
+name: update chart versions
+
+on:
+  repository_dispatch:
+    types: tag-released
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: prepare environment
+      run: |
+        echo "remote_ref=${github.event.client_payload.ref}" >> $env:GITHUB_ENV
+        if [[ "${{env.remote_ref}} =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$]] ]]; then
+          echo "using valid tag $env.remote_ref"
+        else
+          echo "could not validate tag format $env.remote_ref"
+          echo "early_exit=true" >> $env:GITHUB_ENV
+        fi
+
+    - name: checkout commit
+      if: ${{ env.early_exit != true }}
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: update versions
+      if: ${{ env.early_exit != true }}
+      run: |
+        sed -i "s/version:.*/version: ${{env.remote_ref}}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/appVersion:.*/appVersion: ${{env.remote_ref}}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/  tag:.*/  tag: ${{env.remote_ref}}/" "charts/inscriptis/values.yaml"
+
+    - name: push version commit
+      if: ${{ env.early_exit != true }}
+      run: |
+        git config user.name "$GITHUB_ACTOR"
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git add -A
+        git commit -m '[github-actions] bump chart version number.'
+        git push
