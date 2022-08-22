@@ -25,20 +25,20 @@ jobs:
         fi
 
     - name: checkout commit
-      if: ${{ env.CONTINUE == true }}
+      if: env.CONTINUE
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: update versions
-      if: ${{ env.CONTINUE == true }}
+      if: env.CONTINUE
       run: |
         sed -i "s/version:.*/version: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
         sed -i "s/appVersion:.*/appVersion: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
         sed -i "s/  tag:.*/  tag: ${{ env.REMOTE_REF }}/" "charts/inscriptis/values.yaml"
 
     - name: push version commit
-      if: ${{ env.CONTINUE == true }}
+      if: env.CONTINUE
       run: |
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
