@@ -17,7 +17,7 @@ controller:
   rollingUpdate:
     maxSurge: 1
     maxUnavailable: 1
-https://github.com/weblyzard/inscriptis
+
 # defines the resource to be allocated by the pod
 resources:
   limits:
