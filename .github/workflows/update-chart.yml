@@ -13,14 +13,12 @@ jobs:
     steps:
 
     - name: prepare environment
-      with:
-        _remote_ref: ${{ github.event.client_payload.ref }}
       run: |
-        if [[ $_remote_ref =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
-          echo "tag is valid: $_remote_ref."
-          echo "REMOTE_REF=$_remote_ref" >> $GITHUB_ENV
+        if [[ ${{ github.event.client_payload.ref }} =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
+          echo "tag is valid: ${{ github.event.client_payload.ref }}."
+          echo "REMOTE_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
         else
-          echo "could not validate tag: $_remote_ref."
+          echo "could not validate tag: ${{ github.event.client_payload.ref }}."
           echo "EARLY_EXIT=true" >> $GITHUB_ENV
         fi
 
