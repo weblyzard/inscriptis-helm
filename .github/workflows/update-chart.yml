@@ -17,11 +17,11 @@ jobs:
 
     - name: prepare environment
       run: |
-        if [[ $REMOTE_REF =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
-          echo "tag is valid: $REMOTE_REF."
+        if [[ ${REMOTE_REF} =~ ^([0-9]+\.)?([0-9]+\.)?(\*|[0-9]+)$ ]]; then
+          echo "tag is valid: $REMOTE_REF"
           echo "CONTINUE=true" >> $GITHUB_ENV
         else
-          echo "could not validate tag: $REMOTE_REF."
+          echo "could not validate tag: $REMOTE_REF"
         fi
 
     - name: checkout commit
