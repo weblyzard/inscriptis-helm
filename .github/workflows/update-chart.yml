@@ -9,34 +9,35 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
+    env:
+      REMOTE_REF: ${{ github.event.client_payload.ref }}
 
     steps:
 
     - name: prepare environment
       run: |
-        if [[ ${{ github.event.client_payload.ref }} =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
-          echo "tag is valid: ${{ github.event.client_payload.ref }}."
-          echo "REMOTE_REF=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
+        if [[ $REMOTE_REF =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
+          echo "tag is valid: $REMOTE_REF."
+          echo "CONTINUE=true" >> $GITHUB_ENV
         else
-          echo "could not validate tag: ${{ github.event.client_payload.ref }}."
-          echo "EARLY_EXIT=true" >> $GITHUB_ENV
+          echo "could not validate tag: $REMOTE_REF."
         fi
 
     - name: checkout commit
-      if: ${{ env.EARLY_EXIT != true }}
+      if: ${{ env.CONTINUE == true }}
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: update versions
-      if: ${{ env.EARLY_EXIT != true }}
+      if: ${{ env.CONTINUE == true }}
       run: |
         sed -i "s/version:.*/version: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
         sed -i "s/appVersion:.*/appVersion: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
         sed -i "s/  tag:.*/  tag: ${{ env.REMOTE_REF }}/" "charts/inscriptis/values.yaml"
 
     - name: push version commit
-      if: ${{ env.EARLY_EXIT != true }}
+      if: ${{ env.CONTINUE == true }}
       run: |
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
