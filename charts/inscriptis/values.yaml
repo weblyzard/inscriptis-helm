@@ -7,7 +7,7 @@
 # defines the image to use
 image:
   repository: ghcr.io/weblyzard/inscriptis
-  tag: 2.3.0
+  tag: 
   pullPolicy: Always
 
 # defines the replication and update strategy

@@ -2,15 +2,15 @@
 apiVersion: v2
 type: application
 
-version: 2.3.0
-appVersion: 2.3.0
+version: 
+appVersion: 
 
 dependencies:
     # the template chart to be used
     # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common
   - name: common
     repository: https://library-charts.k8s-at-home.com
-    version: 4.5.1
+    version: 
 
 # description of the project itself
 name: inscriptis
