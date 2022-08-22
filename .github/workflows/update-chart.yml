@@ -23,20 +23,20 @@ jobs:
         fi
 
     - name: checkout commit
-      if: ${{ early_exit != true }}
+      if: ${{ env.early_exit != true }}
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: update versions
-      if: ${{ early_exit != true }}
+      if: ${{ env.early_exit != true }}
       run: |
-        sed -i "s/version:.*/version: ${{remote_ref}}/" "charts/inscriptis/Chart.yaml"
-        sed -i "s/appVersion:.*/appVersion: ${{remote_ref}}/" "charts/inscriptis/Chart.yaml"
-        sed -i "s/  tag:.*/  tag: ${{remote_ref}}/" "charts/inscriptis/values.yaml"
+        sed -i "s/version:.*/version: ${{ env.remote_ref }}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/appVersion:.*/appVersion: ${{ env.remote_ref }}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/  tag:.*/  tag: ${{ env.remote_ref }}/" "charts/inscriptis/values.yaml"
 
     - name: push version commit
-      if: ${{ early_exit != true }}
+      if: ${{ env.early_exit != true }}
       run: |
         git config user.name "$GITHUB_ACTOR"
         git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
