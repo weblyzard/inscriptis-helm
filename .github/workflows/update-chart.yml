@@ -15,7 +15,7 @@ jobs:
     - name: prepare environment
       run: |
         echo "remote_ref=${{ github.event.client_payload.ref }}" >> $GITHUB_ENV
-        if [[ "${{ env.remote_ref }} =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$]] ]]; then
+        if [[ "${{ env.remote_ref }} =~ ^(\d+\.)?(\d+\.)?(\*|\d+)$ ]]; then
           echo "using valid tag $env.remote_ref"
         else
           echo "could not validate tag format $env.remote_ref"
