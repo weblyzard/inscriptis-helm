@@ -46,7 +46,7 @@ jobs:
     - name: build publish to gh pages
       uses: helm/chart-releaser-action@v1.4.0
       with:
-        charts_dir: charts
+        charts_dir: chart
         charts_repo_url: main
         config: .github/chart-release-config.yaml
       env:
