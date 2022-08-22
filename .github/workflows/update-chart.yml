@@ -28,6 +28,7 @@ jobs:
       if: env.CONTINUE
       uses: actions/checkout@v3
       with:
+        token: ${{secrets.HELMREPO_ACCESS_TOKEN}}
         fetch-depth: 0
 
     - name: update versions
