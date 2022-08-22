@@ -3,7 +3,12 @@ name: helm lifecycle
 on:
   push:
     branches:
-      - master
+      - main
+    paths-ignore:
+      - '**/README.md'
+      - '**/index.yaml'
+  repository_dispatch:
+    types: tag-released
 
 jobs:
   release:
@@ -12,9 +17,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: prepare environment
+      run: |
+        echo ("remote_ref=" + $env:GITHUB_REF.replace('refs/heads/', '')) >> $env:GITHUB_ENV
+        if [[ "${{ github.event.name }}" == "tag-released" ]]; then
+          echo ("remote_ref=" + $github.event.client_payload.ref >> $env:GITHUB_ENV
+        fi
+
     - name: checkout commit
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
+        repository: weblyzard/inscriptis
+        ref: $remote_ref
         fetch-depth: 0
 
     - name: git configuration
@@ -30,7 +45,8 @@ jobs:
     - name: build publish to gh pages
       uses: helm/chart-releaser-action@v1.4.0
       with:
-        charts_dir: helm
-        config: helm/chart-release-config.yaml
+        charts_dir: charts
+        charts_repo_url: main
+        config: .github/chart-release-config.yaml
       env:
         CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
