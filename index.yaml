@@ -7,7 +7,7 @@ entries:
     dependencies:
     - name: common
       repository: https://library-charts.k8s-at-home.com
-      version: 2.3.0
+      version: 4.5.2
     description: A Helm chart for Kubernetes, including inscriptis deployment, service
       and ingress
     digest: 7f1ed3346c79c0bca2012adb3aaa790e497e12b48b20f8a708d1468a23803995
