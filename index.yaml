@@ -1,0 +1,32 @@
+apiVersion: v1
+entries:
+  inscriptis:
+  - apiVersion: v2
+    appVersion: 2.3.0
+    created: "2022-08-23T07:09:32.654658247Z"
+    dependencies:
+    - name: common
+      repository: https://library-charts.k8s-at-home.com
+      version: 2.3.0
+    description: A Helm chart for Kubernetes, including inscriptis deployment, service
+      and ingress
+    digest: 7f1ed3346c79c0bca2012adb3aaa790e497e12b48b20f8a708d1468a23803995
+    home: https://github.com/weblyzard/inscriptis
+    keywords:
+    - inscriptis
+    - html2text
+    - preprocessing
+    - nlp
+    maintainers:
+    - name: Philipp Kuntschik
+    - name: Albert Weichselbraun
+    name: inscriptis
+    sources:
+    - https://github.com/weblyzard/inscriptis-helm
+    - https://github.com/weblyzard/inscriptis
+    - https://github.com/x28/inscriptis-java
+    type: application
+    urls:
+    - https://github.com/weblyzard/inscriptis-helm/releases/download/inscriptis-2.3.0/inscriptis-2.3.0.tgz
+    version: 2.3.0
+generated: "2022-08-23T07:09:32.654664547Z"
