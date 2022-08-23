@@ -34,8 +34,8 @@ jobs:
     - name: update versions
       if: env.CONTINUE
       run: |
-        sed -i "s/version:.*/version: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
-        sed -i "s/appVersion:.*/appVersion: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/^version:.*/version: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
+        sed -i "s/^appVersion:.*/appVersion: ${{ env.REMOTE_REF }}/" "charts/inscriptis/Chart.yaml"
         sed -i "s/  tag:.*/  tag: ${{ env.REMOTE_REF }}/" "charts/inscriptis/values.yaml"
 
     - name: push version commit
