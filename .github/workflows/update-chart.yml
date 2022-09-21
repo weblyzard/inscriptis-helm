@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # REMOTE_REF: ${{ github.event.client_payload.ref }}
-      REMOTE_REF: 2.3.0
+      REMOTE_REF: 2.3.1
 
     steps:
 
