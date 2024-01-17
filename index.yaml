@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   inscriptis:
   - apiVersion: v2
-    appVersion: 2.3.1
+    appVersion: 2.4.0.1
     created: "2022-08-23T07:09:32.654658247Z"
     dependencies:
     - name: common
@@ -27,6 +27,6 @@ entries:
     - https://github.com/x28/inscriptis-java
     type: application
     urls:
-    - https://github.com/weblyzard/inscriptis-helm/releases/download/inscriptis-2.3.1/inscriptis-2.3.1.tgz
-    version: 2.3.1
+    - https://github.com/weblyzard/inscriptis-helm/releases/download/inscriptis-2.4.0.1/inscriptis-2.4.0.1.tgz
+    version: 2.4.0.1
 generated: "2022-08-23T07:09:32.654664547Z"
