@@ -2,8 +2,8 @@
 apiVersion: v2
 type: application
 
-version: 2.4.0.1
-appVersion: 2.4.0.1
+version: 2.5.0
+appVersion: 2.5.0
 
 dependencies:
     # the template chart to be used
